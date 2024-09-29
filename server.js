@@ -59,7 +59,7 @@ app.post('/generate-image', async (req, res) => {
                 model: 'dall-e-3', // Use 'dall-e-3' as per your requirement
                 n: 1,
                 size: '1792x1024',
-                quality='standard',
+                quality: 'standard',
             },
             {
                 headers: {
