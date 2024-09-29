@@ -58,9 +58,9 @@ app.post('/generate-image', async (req, res) => {
                 prompt: imagePrompt,
                 model: 'dall-e-3', // Use 'dall-e-3' if you have access
                 n: 1,
-                size: '1792x1024', // Updated size to a supported value
+                size: '1792x1024', // +4 cents for 1792 (from baseline 4 cents)
                 // Remove or comment out the 'quality' parameter if unsupported
-                quality: 'hd',
+                quality: 'hd', // +4 cents for 'hd' rather than 'standard' (from baseline 4 cents)
             },
             {
                 headers: {
