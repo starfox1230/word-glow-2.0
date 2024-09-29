@@ -14,7 +14,32 @@ document.getElementById('insertStoryButton').addEventListener('click', async fun
     document.getElementById('insertStoryButton').innerText = 'Generating Image...';
     document.getElementById('insertStoryButton').disabled = true;
 
-    // ... existing code for image generation ...
+    // Send the story to the backend to generate the image
+    try {
+        const response = await fetch('/generate-image', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ story: text })
+        });
+        const data = await response.json();
+        if (response.ok && data.imageUrl) {
+            imageUrl = data.imageUrl;
+            console.log('Image URL received:', imageUrl);
+        } else {
+            alert(data.error || 'Failed to generate image.');
+            // Reset the button
+            document.getElementById('insertStoryButton').innerText = 'Insert Story';
+            document.getElementById('insertStoryButton').disabled = false;
+            return;
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        alert('An error occurred while generating the image.');
+        // Reset the button
+        document.getElementById('insertStoryButton').innerText = 'Insert Story';
+        document.getElementById('insertStoryButton').disabled = false;
+        return;
+    }
 
     // Hide the loading indicator
     document.getElementById('insertStoryButton').style.display = 'none';
