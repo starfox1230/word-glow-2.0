@@ -56,9 +56,10 @@ app.post('/generate-image', async (req, res) => {
             'https://api.openai.com/v1/images/generations',
             {
                 prompt: imagePrompt,
-                model: 'dall-e-3', // Use 'dall-e-3' as per your requirement
+                model: 'dall-e-3', // Use 'dall-e-3' if you have access
                 n: 1,
-                size: '1792x1024',
+                size: '1024x1024', // Updated size to a supported value
+                // Remove or comment out the 'quality' parameter if unsupported
                 quality: 'standard',
             },
             {
@@ -73,8 +74,15 @@ app.post('/generate-image', async (req, res) => {
 
         res.json({ imageUrl });
     } catch (error) {
-        console.error('Error:', error.response ? error.response.data : error.message);
-        res.status(500).json({ error: 'Failed to generate image.' });
+        console.error('Error occurred during image generation:');
+        if (error.response) {
+            console.error('Status:', error.response.status);
+            console.error('Data:', error.response.data);
+            res.status(500).json({ error: error.response.data.error.message });
+        } else {
+            console.error('Error Message:', error.message);
+            res.status(500).json({ error: 'An unexpected error occurred.' });
+        }
     }
 });
 
