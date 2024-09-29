@@ -10,6 +10,10 @@ document.getElementById('insertStoryButton').addEventListener('click', async fun
         return;
     }
 
+    // Show a loading indicator (optional)
+    document.getElementById('insertStoryButton').innerText = 'Generating Image...';
+    document.getElementById('insertStoryButton').disabled = true;
+
     // Send the story to the backend to generate the image
     try {
         const response = await fetch('/generate-image', {
@@ -20,13 +24,26 @@ document.getElementById('insertStoryButton').addEventListener('click', async fun
         const data = await response.json();
         if (response.ok && data.imageUrl) {
             imageUrl = data.imageUrl;
+            console.log('Image URL received:', imageUrl);
         } else {
             alert(data.error || 'Failed to generate image.');
+            // Reset the button
+            document.getElementById('insertStoryButton').innerText = 'Insert Story';
+            document.getElementById('insertStoryButton').disabled = false;
+            return;
         }
     } catch (error) {
         console.error('Error:', error);
         alert('An error occurred while generating the image.');
+        // Reset the button
+        document.getElementById('insertStoryButton').innerText = 'Insert Story';
+        document.getElementById('insertStoryButton').disabled = false;
+        return;
     }
+
+    // Hide the loading indicator
+    document.getElementById('insertStoryButton').style.display = 'none';
+    document.getElementById('storyArea').style.display = 'none';
 
     // Split the text into sentences
     const rawSentences = text.match(/[^.!?]+[.!?]+(?:["'”’]+)?(\s+|$)/g) || [text];
@@ -38,9 +55,6 @@ document.getElementById('insertStoryButton').addEventListener('click', async fun
     currentSentenceIndex = 0;
     currentWordIndex = 0;
     isStoryInserted = true;
-
-    document.getElementById('insertStoryButton').style.display = 'none';
-    document.getElementById('storyArea').style.display = 'none';
 
     document.getElementById('buttons').style.display = 'block';
     document.getElementById('sentenceDisplay').style.display = 'block';
@@ -60,8 +74,11 @@ function updateSentence() {
     });
 
     // Check if we've reached the end
-    if (currentSentenceIndex === sentences.length - 1 && currentWordIndex === sentences[currentSentenceIndex].length - 1) {
-        // Show the "Show Image" button
+    if (
+        currentSentenceIndex >= sentences.length - 1 &&
+        currentWordIndex >= sentences[currentSentenceIndex].length - 1
+    ) {
+        console.log('End of story reached. Showing "Show Image" button.');
         document.getElementById('showImageButton').style.display = 'block';
     }
 }
@@ -90,6 +107,8 @@ function nextWord() {
             currentSentenceIndex += 1;
             currentWordIndex = 0;
         } else {
+            // Reached the end of the story
+            updateSentence(); // Ensure the last word is displayed
             return;
         }
     } while (!sentences[currentSentenceIndex][currentWordIndex].isWord);
@@ -99,7 +118,7 @@ function nextWord() {
 document.getElementById('prevWordButton').addEventListener('click', prevWord);
 document.getElementById('nextWordButton').addEventListener('click', nextWord);
 
-document.getElementById('showImageButton').addEventListener('click', function() {
+document.getElementById('showImageButton').addEventListener('click', function () {
     if (imageUrl) {
         document.getElementById('imageContainer').style.display = 'block';
         document.getElementById('generatedImage').src = imageUrl;
