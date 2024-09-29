@@ -25,6 +25,7 @@ button {
     background-color: #0066ff;
     color: #fff;
     cursor: pointer;
+    touch-action: manipulation; /* Prevent double-tap zoom on buttons */
 }
 
 button:hover {
@@ -44,8 +45,39 @@ button:hover {
 }
 
 .highlight {
-    background-color: #ffeb3b;
+    background-color: #ffeb3b; /* Original yellow background */
     transition: background-color 0.5s ease;
+}
+
+/* Correct Answer Animation */
+.correct-answer {
+    animation: fadeGreen 0.5s forwards;
+}
+
+@keyframes fadeGreen {
+    0% {
+        background-color: #00ff00; /* Green flash */
+    }
+    100% {
+        background-color: #ffeb3b; /* Revert to yellow */
+    }
+}
+
+/* Wrong Answer Animation */
+.wrong-answer {
+    animation: pulseRed 1s forwards;
+}
+
+@keyframes pulseRed {
+    0% {
+        background-color: #ffeb3b; /* Original yellow background */
+    }
+    50% {
+        background-color: #ff0000; /* Flash red */
+    }
+    100% {
+        background-color: #ffeb3b; /* Revert to yellow */
+    }
 }
 
 #buttonWrapper {
