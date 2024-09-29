@@ -27,7 +27,7 @@ app.post('/generate-image', async (req, res) => {
         const chatResponse = await axios.post(
             'https://api.openai.com/v1/chat/completions',
             {
-                model: 'gpt-3.5-turbo',
+                model: 'gpt-4o-2024-08-06',
                 messages: [
                     {
                         role: 'system',
@@ -35,10 +35,10 @@ app.post('/generate-image', async (req, res) => {
                     },
                     {
                         role: 'user',
-                        content: `Create an image prompt based on the most iconic moment from this story. Create a prompt to generate a cartoon storybook style image. Only return the prompt, do not return any additional words.\n\nStory:\n${story}`
+                        content: `Please create a detailed and specific image prompt for DALL·E to generate an image based on the following story. Focus on including key characters, their physical features, important objects, the environment, mood, and any significant action happening in the scene. The prompt should describe everything in a way that will result in a visually accurate and engaging image. The image should be in a whimsical, storybook illustration style. Only return the prompt, do not return any additional words. Here is the story:\n\nStory:\n${story}`
                     }
                 ],
-                max_tokens: 100,
+                max_tokens: 1000,
                 temperature: 0.7,
             },
             {
@@ -60,7 +60,7 @@ app.post('/generate-image', async (req, res) => {
                 n: 1,
                 size: '1024x1024', // Updated size to a supported value
                 // Remove or comment out the 'quality' parameter if unsupported
-                quality: 'standard',
+                quality: 'hd',
             },
             {
                 headers: {
