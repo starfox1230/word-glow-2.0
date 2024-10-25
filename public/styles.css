@@ -1,3 +1,4 @@
+/* General Body Styles */
 body {
     font-family: 'Arial', sans-serif;
     background-color: #f4f4f4;
@@ -6,6 +7,7 @@ body {
     margin: 0;
 }
 
+/* Text Area for Story Input */
 textarea {
     width: 100%;
     max-width: 600px;
@@ -16,6 +18,7 @@ textarea {
     border: 1px solid #ccc;
 }
 
+/* General Button Styles */
 button {
     font-size: 1em;
     padding: 10px 20px;
@@ -32,6 +35,36 @@ button:hover {
     background-color: #0052cc;
 }
 
+/* Progress Bar Styles */
+#progressBarContainer {
+    width: 100%;
+    background-color: #ddd; /* Light gray background */
+    height: 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    overflow: hidden; /* Ensure the progress bar doesn't overflow the container */
+}
+
+#progressBar {
+    height: 100%;
+    width: 0%; /* Start with 0% width */
+    background-color: #4caf50; /* Green color */
+    transition: width 0.2s ease-in-out; /* Smooth animation */
+    position: relative; /* Position context for progress text */
+}
+
+#progressText {
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    color: #fff; /* White text */
+    font-weight: bold;
+    top: 0;
+    left: 0;
+    line-height: 20px; /* Match the height of the progress bar */
+}
+
+/* Sentence Display Styles */
 #sentenceDisplay {
     font-size: 2em;
     max-width: 600px;
@@ -44,6 +77,7 @@ button:hover {
     line-height: 1.6;
 }
 
+/* Highlighting the Current Word */
 .highlight {
     background-color: #ffeb3b; /* Original yellow background */
     transition: background-color 0.5s ease;
@@ -80,11 +114,13 @@ button:hover {
     }
 }
 
+/* Center the Buttons */
 #buttonWrapper {
     text-align: center;
     margin-top: 20px;
 }
 
+/* Show Image Button */
 #showImageButton {
     display: block;
     margin: 20px auto;
