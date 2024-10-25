@@ -35,7 +35,7 @@ app.post('/generate-image', async (req, res) => {
                     },
                     {
                         role: 'user',
-                        content: `Please create a detailed and specific image prompt for DALL·E to generate an image based on the following story. Focus on including key characters, their physical features, important objects, the environment, mood, and any significant action happening in the scene. The prompt should describe everything in a way that will result in a visually accurate and engaging image. The image should be in a whimsical, storybook illustration style. Only return the prompt, do not return any additional words. Here is the story:\n\nStory:\n${story}`
+                        content: `Please create a detailed and specific image prompt for DALL·E to generate an image based on the following story. Focus on including key characters, their physical features, important objects, the environment, mood, and any significant action happening in the scene. The prompt should describe everything in a way that will result in a visually accurate and engaging image. The image should be in a whimsical, storybook illustration style. If the story contains a character named Matilda, she should be described as having short brown hair and brown eyes and look about 4 years old. If the story contains a girl name Eloise, she should be described as having short blonde hair in pigtails and have blue eyes and look about 2 years old. If characters have other names, you can describe them as you feel so inclined. Only return the prompt, do not return any additional words. Here is the story:\n\nStory:\n${story}`
                     }
                 ],
                 max_tokens: 1000,
