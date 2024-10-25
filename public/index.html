@@ -7,22 +7,37 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 </head>
 <body>
+    <!-- Progress Bar at the Top -->
+    <div id="progressBarContainer">
+        <div id="progressBar">
+            <span id="progressText"></span>
+        </div>
+    </div>
+
+    <!-- Story Input Area -->
     <textarea id="storyArea" rows="10" cols="50" placeholder="Paste your story here..."></textarea>
     <br>
     <button id="insertStoryButton">Insert Story</button>
+
+    <!-- Sentence Display Area -->
     <div id="sentenceDisplay" style="display: none;"></div>
+
+    <!-- Navigation Buttons -->
     <div id="buttonWrapper">
         <div id="buttons" style="display: none;">
             <button id="prevWordButton">Previous</button>
             <button id="nextWordButton">Next</button>
         </div>
     </div>
+
     <!-- Show Image Button -->
     <button id="showImageButton" style="display: none;">Show Image</button>
+
     <!-- Image Container -->
     <div id="imageContainer" style="display: none;">
         <img id="generatedImage" src="" alt="Generated Image">
     </div>
+
     <script src="script.js"></script>
 </body>
 </html>
