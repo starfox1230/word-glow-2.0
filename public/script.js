@@ -1,6 +1,7 @@
 let text, sentences, currentSentenceIndex, currentWordIndex;
 let isStoryInserted = false;
 let imageUrl = null; // To store the generated image URL
+let totalWords = 0;  // To store the total number of words
 
 document.getElementById('insertStoryButton').addEventListener('click', async function() {
     text = document.getElementById('storyArea').value;
@@ -56,6 +57,16 @@ document.getElementById('insertStoryButton').addEventListener('click', async fun
     currentWordIndex = 0;
     isStoryInserted = true;
 
+    // Calculate total number of words
+    totalWords = 0;
+    sentences.forEach(sentence => {
+        sentence.forEach(token => {
+            if (token.isWord) {
+                totalWords += 1;
+            }
+        });
+    });
+
     document.getElementById('buttons').style.display = 'block';
     document.getElementById('sentenceDisplay').style.display = 'block';
 
@@ -75,6 +86,34 @@ function updateSentence() {
             sentenceDisplay.innerHTML += token.content;
         }
     });
+
+    // Calculate current word's global index
+    let wordsBefore = 0;
+    // Sum words in previous sentences
+    for (let i = 0; i < currentSentenceIndex; i++) {
+        sentences[i].forEach(token => {
+            if (token.isWord) {
+                wordsBefore += 1;
+            }
+        });
+    }
+    // Sum words in the current sentence up to the current word
+    for (let i = 0; i < currentWordIndex; i++) {
+        if (sentences[currentSentenceIndex][i].isWord) {
+            wordsBefore += 1;
+        }
+    }
+    // Current word index (1-based)
+    let currentWordGlobalIndex = wordsBefore + 1;
+
+    // Calculate progress percentage
+    let progressPercent = (currentWordGlobalIndex / totalWords) * 100;
+
+    // Update the progress bar width
+    document.getElementById('progressBar').style.width = progressPercent + '%';
+
+    // Optionally, update progress text if you added it
+    document.getElementById('progressText').innerText = Math.floor(progressPercent) + '% completed';
 
     // Check if we've reached the end
     if (
