@@ -113,7 +113,7 @@ function updateSentence() {
     document.getElementById('progressBar').style.width = progressPercent + '%';
 
     // Optionally, update progress text if you added it
-    document.getElementById('progressText').innerText = Math.floor(progressPercent) + '% completed';
+    document.getElementById('progressText').innerText = Math.floor(progressPercent) + '%';
 
     // Check if we've reached the end
     if (
